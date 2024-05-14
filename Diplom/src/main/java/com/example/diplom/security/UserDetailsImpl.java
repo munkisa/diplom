@@ -16,8 +16,9 @@ public class UserDetailsImpl implements UserDetails {
     private int pass_id;
     private String email;
     private String password;
+    private Collection<? extends GrantedAuthority> authorities;
 
-    public UserDetailsImpl(Long id, String name, String surname, int pass_series, int pass_id, String email, String password) {
+    public UserDetailsImpl(Long id, String name, String surname, int pass_series, int pass_id, String email, String password, Collection<? extends GrantedAuthority> authorities) {
         this.id = id;
         this.name = name;
         this.surname = surname;
@@ -25,10 +26,11 @@ public class UserDetailsImpl implements UserDetails {
         this.pass_id = pass_id;
         this.email = email;
         this.password = password;
+        this.authorities = authorities;
     }
 
     public static UserDetailsImpl build(UserEntity userEntity) {
-        //List<GrantedAuthority> authorityList = List.of(new SimpleGrantedAuthority())
+        List<GrantedAuthority> authorityList = List.of(new SimpleGrantedAuthority());
         return new UserDetailsImpl(
                 userEntity.getId(),
                 userEntity.getName(),

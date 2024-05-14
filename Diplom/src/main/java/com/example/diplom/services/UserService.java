@@ -12,7 +12,7 @@ public class UserService {
     UserRepo userRepo;
     private BCryptPasswordEncoder encoder(){return new BCryptPasswordEncoder();}
     public void saveUser(UserEntity userEntity) {
-        //userEntity.setPassword(encoder().encode(userEntity.getPassword()));
+        userEntity.setPassword(encoder().encode(userEntity.getPassword()));
         userRepo.save(userEntity);
     }
 }

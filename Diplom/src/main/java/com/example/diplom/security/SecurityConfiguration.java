@@ -22,7 +22,7 @@ public class SecurityConfiguration {
     public DaoAuthenticationProvider daoAuthenticationProvider() {
         DaoAuthenticationProvider auth = new DaoAuthenticationProvider();
         auth.setUserDetailsService(userDetailsService);
-        //auth.setPasswordEncoder(encoder());
+        auth.setPasswordEncoder(encoder());
         return auth;
     }
 
