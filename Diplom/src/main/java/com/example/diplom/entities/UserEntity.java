@@ -20,5 +20,5 @@ public class UserEntity {
     private int pass_id;
     private String email;
     private String password;
-
+    private ERole role = ERole.USER_ROLE;
 }

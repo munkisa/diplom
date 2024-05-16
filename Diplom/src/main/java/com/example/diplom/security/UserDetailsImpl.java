@@ -1,3 +1,4 @@
+/*
 package com.example.diplom.security;
 
 import com.example.diplom.entities.UserEntity;
@@ -30,7 +31,7 @@ public class UserDetailsImpl implements UserDetails {
     }
 
     public static UserDetailsImpl build(UserEntity userEntity) {
-        List<GrantedAuthority> authorityList = List.of(new SimpleGrantedAuthority());
+        List<GrantedAuthority> authorityList = List.of(new SimpleGrantedAuthority(userEntity.getRole().name()));
         return new UserDetailsImpl(
                 userEntity.getId(),
                 userEntity.getName(),
@@ -38,12 +39,13 @@ public class UserDetailsImpl implements UserDetails {
                 userEntity.getPass_series(),
                 userEntity.getPass_id(),
                 userEntity.getEmail(),
-                userEntity.getPassword());
+                userEntity.getPassword(),
+                authorityList);
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        return authorities;
     }
 
     @Override
@@ -63,7 +65,70 @@ public class UserDetailsImpl implements UserDetails {
 
     @Override
     public boolean isAccountNonLocked() {
-        return false;
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
+}
+*/
+package com.example.diplom.security;
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import com.example.diplom.entities.UserEntity;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import java.util.Collection;
+import java.util.List;
+
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
+public class UserDetailsImpl implements UserDetails {
+
+    private UserEntity userEntity;
+    private List<GrantedAuthority> authorities;
+
+    public static UserDetailsImpl build(UserEntity userEntity) {
+        return new UserDetailsImpl(userEntity, List.of(new SimpleGrantedAuthority(userEntity.getRole().name())));
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return authorities;
+    }
+
+    @Override
+    public String getPassword() {
+        return userEntity.getPassword();
+    }
+
+    @Override
+    public String getUsername() {
+        return userEntity.getEmail();
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
     }
 
     @Override
