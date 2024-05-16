@@ -3,6 +3,8 @@ package com.example.diplom.entities;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.List;
+
 @Entity
 @Getter
 @Setter
@@ -21,4 +23,6 @@ public class UserEntity {
     private String email;
     private String password;
     private ERole role = ERole.USER_ROLE;
+    @OneToMany(mappedBy = "owner")
+    private List<DealEntity> deals;
 }

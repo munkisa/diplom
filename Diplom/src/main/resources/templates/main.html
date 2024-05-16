@@ -19,7 +19,7 @@
             </thead>
             <tbody>
             <tr th:each="deal: ${deals}">
-                <th th:text="${deal.getId()}" scope="row"></th>
+                <th th:text="${deal.getDeal_id()}" scope="row"></th>
                 <td th:text="${deal.getSell_currency()}"></td>
                 <td th:text="${deal.getBuy_currency()}"></td>
                 <td th:text="${deal.getPrice()}"></td>
@@ -30,9 +30,7 @@
         </table>
     </div>
 
-    <form th:action="@{/deal}" th:method="get">
-        <input type="submit" value="Добавить сделку">
-    </form>
+    <a th:href="@{/deal}">Добавить обмен</a>
 
     <form th:action="@{/logout}" method="post">
         <input type="submit" value="Выход">

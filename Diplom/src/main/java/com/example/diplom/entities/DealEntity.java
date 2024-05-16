@@ -18,6 +18,9 @@ public class DealEntity {
     private Currency buy_currency;
     private Double price;
     private Integer count;
+    @ManyToOne
+    @JoinColumn(name = "fk_id")
+    private UserEntity owner;
 
     public DealEntity(Currency sellCurrency, Currency buyCurrency, Double price, Integer count) {
         this.sell_currency = sellCurrency;

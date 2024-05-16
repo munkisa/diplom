@@ -36,9 +36,12 @@ public class SecurityConfiguration {
                 )
                 .formLogin((form) -> form
                         .loginPage("/login")
+                        .defaultSuccessUrl("/main", true)
                         .permitAll()
                 )
                 .logout(LogoutConfigurer::permitAll).csrf(csrf -> csrf.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()).ignoringRequestMatchers("/races/addFoundedRaces"));
         return http.build();
     }
+
+
 }
